@@ -23,13 +23,6 @@ if __name__ == "__main__":
     # pngファイル取得
     detected_files = glob.glob("%s/*.png" % (args.p))
 
-    for file_name in detected_files:
-        before_path = file_name
-        filename = os.path.basename(file_name)
-        after_path = '%s/%s' % ( detect_dir, filename )
-
-        print("filename = "+filename)
-
     for detected_file_name in detected_files:
         print(" detect key points on file:"+detected_file_name)
 
@@ -52,7 +45,8 @@ if __name__ == "__main__":
         out_image = cv2.drawKeypoints(image, detectKeyPoints_list, None)
         
         # 出力
-        cv2.imwrite(detect_dir+"/"+"KeyPoints_"+basename+".png", out_image)
+        #cv2.imwrite(detect_dir+"/"+"KeyPoints_"+basename+".png", out_image)
+        cv2.imwrite(detect_dir+"/"+"KeyPoints_"+basename, out_image)
 
 
     print("Done.")
