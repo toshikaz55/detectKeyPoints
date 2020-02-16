@@ -21,27 +21,21 @@ if __name__ == "__main__":
         os.makedirs(detect_dir)
 
     # pngファイル取得
-    files = glob.glob("%s/*.png" % (args.p))
+    detected_files = glob.glob("%s/*.png" % (args.p))
 
-    for file_name in files:
+    for file_name in detected_files:
         before_path = file_name
         filename = os.path.basename(file_name)
         after_path = '%s/%s' % ( detect_dir, filename )
 
         print("filename = "+filename)
 
-    detected_files = glob.glob(detect_dir+"/*.png")
-    
-    # 画像のロードcheck
-    #image = cv2.imread(file_name)
-    #print(image)
-
     for detected_file_name in detected_files:
         print(" detect key points on file:"+detected_file_name)
 
         # 画像のロード
         image = cv2.imread(detected_file_name)
-        print(image)
+        #print(image)
 
         if image is None:
             # 読み込み失敗
@@ -50,8 +44,8 @@ if __name__ == "__main__":
 
 
         detectKeyPoints_list = detectKeyPoints(image)
-        #if len(detectKeyPoints_list) == 0:
-        #    continue
+        if len(detectKeyPoints_list) == 0:
+            continue
 
         basename = os.path.basename(detected_file_name)
 
@@ -59,9 +53,6 @@ if __name__ == "__main__":
         
         # 出力
         cv2.imwrite(detect_dir+"/"+"KeyPoints_"+basename+".png", out_image)
-
-        print("loop end")
-
 
 
     print("Done.")
